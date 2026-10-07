@@ -1,58 +1,67 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GMT 458 - Kişisel Web Sayfası</title>
-    <!-- Tasarım dosyamızı index.html sayfasına bağlıyoruz -->
+    <title>GMT 458 - Personal Web Page</title>
+    <!-- Linking our CSS style sheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Üst Menü Kısmı (Sayfalar arası geçişi sağlar) -->
+    <!-- Navigation Menu -->
     <nav>
-        <a href="index.html" class="active">Hakkımda</a> | 
-        <a href="maps.html">Haritalar (Web GIS)</a> | 
-        <a href="social.html">İletişim</a>
+        <a href="index.html" class="active">About Me</a> | 
+        <a href="maps.html">Maps (Web GIS)</a> | 
+        <a href="social.html">Contact</a>
     </nav>
 
     <main>
-        <!-- Ödev Kuralı: h1 Başlığı -->
-        <h1 class="animate-title">Web GIS Dünyasına Hoş Geldiniz!</h1>
+        <!-- Assignment Rule: h1 Animated Title -->
+        <h1 class="animate-title">Welcome to the World of Web GIS!</h1>
         
-        <section>
-            <h2>Ben Kimim?</h2>
-            <p>Merhaba, ben Hacettepe Üniversitesi Harita Mühendisliği Bölümü 4 sınıf öğrencisi, Busra Basoglu. Bu web sitesini <strong>GMT 458: Web GIS</strong> dersi kapsamında hazırlıyorum.</p>
+        <section class="profile-section">
+            <h2>About Me</h2>
+            <p>Hello! I am Busra. I am a 4th-year student in the Department of Geomatics Engineering at Hacettepe University. My primary fields of interest include spatial data analysis, geographic databases, and developing web-based mapping applications (Web GIS). I am building this website as part of my first assignment for the <strong>GMT 458: Web GIS</strong> course.</p>
         </section>
 
-        <!-- Ödev Kuralı: Görselli ve Tablolu Bilgi (%10 Puan) -->
+        <section class="interests-section">
+            <h2>Interests & Hobbies</h2>
+            <ul>
+                <li><strong>Web Mapping:</strong> Creating dynamic map designs using libraries like Leaflet and OpenLayers.</li>
+                <li><strong>Remote Sensing:</strong> Analyzing environmental and urban changes through satellite imagery.</li>
+                <li><strong>Photography:</strong> Capturing landscape and city views through my lens.</li>
+            </ul>
+        </section>
+
+        <!-- Assignment Rule: Structured Table with Visual Logos (%10 Points) -->
         <section>
-            <h2>Kullandığım Teknolojiler</h2>
-            <p>Bu derste ve ödevde kullandığım temel teknolojiler aşağıda listelenmiştir:</p>
+            <h2>Technologies I Use</h2>
+            <p>Below are the fundamental web technologies I am actively utilizing throughout this course and assignment:</p>
             
             <table border="1">
                 <thead>
                     <tr>
                         <th>Logo</th>
-                        <th>Teknoloji Adı</th>
-                        <th>Kullanım Amacı</th>
+                        <th>Technology</th>
+                        <th>Purpose of Use</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><img src="https://wikimedia.org" alt="HTML5 Logo" width="40"></td>
+                        <td><img src="https://w3.org" alt="HTML5 Logo" width="40"></td>
                         <td>HTML5</td>
-                        <td>Web sayfasının iskeletini ve içeriğini oluşturmak.</td>
+                        <td>Structuring the layout and core content of the web page.</td>
                     </tr>
                     <tr>
                         <td><img src="https://wikimedia.org" alt="CSS3 Logo" width="40"></td>
                         <td>CSS3</td>
-                        <td>Sayfa tasarımı, renkler ve animasyonlar yapmak.</td>
+                        <td>Styling the layout, managing colors, and implementing engaging animations.</td>
                     </tr>
                     <tr>
-                        <td><img src="https://wikimedia.org" alt="Git Logo" width="40"></td>
+                        <td><img src="https://wikimedia.org" alt="Git Logo" width="50"></td>
                         <td>Git / GitHub</td>
-                        <td>Kodların versiyon kontrolünü sağlamak ve ödevi sunmak.</td>
+                        <td>Managing version control and tracking changes across multiple commit days.</td>
                     </tr>
                 </tbody>
             </table>
@@ -60,8 +69,9 @@
     </main>
 
     <footer>
-        <p>© 2026 GMT 458 Web GIS Ödevi. Tüm Hakları Saklıdır.</p>
+        <p>© 2026 GMT 458 Web GIS Assignment. All Rights Reserved.</p>
     </footer>
 
 </body>
 </html>
+
