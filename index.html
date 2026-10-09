@@ -3,85 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GMT 458 - Personal Web Page</title>
+    <title>Büşra Başoğlu - GMT 458 Portfolio</title>
     <!-- Linking our CSS style sheet -->
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <!-- Navigation Menu -->
     <nav>
-        <a href="index.html" class="active">About Me</a> | 
-        <a href="maps.html">Maps (Web GIS)</a> | 
-        <a href="social.html">Contact</a>
+        <div class="nav-container">
+            <span class="nav-logo">Büşra Başoğlu</span>
+            <div class="nav-links">
+                <a href="index.html" class="active">About Me</a>
+                <a href="maps.html">Maps (Web GIS)</a>
+                <a href="social.html">Contact</a>
+            </div>
+        </div>
     </nav>
 
-    <main>
-        <!-- Assignment Rule: h1 Animated Title -->
-        <h1 class="animate-title">Welcome to My Personal Web Page!</h1>
+    <main class="container">
+        <!-- Hero Section with Animated Title -->
+        <h1 class="animate-title">Welcome to My Personal Web Page! </h1>
         
-        <!-- Profile Section with Photo Placeholder -->
+        <!-- Profile Section with Photo -->
         <section class="profile-section">
-            <h2>About Me</h2>
-            
-            <!-- Profil fotoğrafını eklediğinde dosya adını buraya yazabilirsin (örn: profile.jpg) -->
-            <img src="placeholder-photo.jpg" alt="Busra Basoglu" class="profile-img">
-            
-            <p>Hello! I am Büşra Başoğlu, a senior-year student in the Department of Geomatics Engineering at Hacettepe University. Throughout my undergraduate education, I have developed a deep passion for transforming complex spatial data into meaningful, accessible, and interactive digital experiences.</p>
-            
-            <p>My core academic and technical interests lie in <strong>Web GIS</strong>, spatial database management, remote sensing analysis, and disaster management mapping. I enjoy bridging the gap between traditional cartography and modern web technologies, enabling users to explore geographic information dynamically.</p>
-            
-            <p>This website serves as my personal digital portfolio and map journal for the <strong>GMT 458: Web GIS</strong> course, where I showcase custom web mapping applications built using HTML5, CSS3, Leaflet, and OpenLayers.</p>
+            <div class="profile-card">
+                <img src="profil.jpg" alt="Büşra Başoğlu" class="profile-img">
+                <div class="profile-info">
+                    <h2>Hello, I'm Büşra! 👋</h2>
+                    <p class="subtitle">Senior Geomatics Engineering Student @ Hacettepe University</p>
+                    <p>I have a deep passion for transforming complex spatial data into meaningful, accessible, and interactive digital web experiences. Bridging the gap between traditional cartography and modern web technologies drives my enthusiasm for Web GIS.</p>
+                </div>
+            </div>
         </section>
 
-        <section class="interests-section">
-            <h2>Technical Skills & Engineering Focus</h2>
-            <ul>
-                <li><strong>Web Mapping & GIS:</strong> Building interactive vector layers, marker clustering, and custom spatial bounding using Leaflet & OpenLayers.</li>
-                <li><strong>Spatial Analysis Software:</strong> Active utilization of QGIS, Netcad, and Google Earth Engine for environmental and regional mapping projects.</li>
-                <li><strong>Remote Sensing:</strong> Processing satellite imagery and assessing environmental changes (such as wildfire severity indices).</li>
-                <li><strong>Version Control:</strong> Managing collaborative and individual engineering projects via Git and GitHub workflows.</li>
-            </ul>
+        <!-- Academic & Technical Focus -->
+        <section class="content-section">
+            <h2>💻 Technical Skills & Engineering Focus</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <strong>Web Mapping & GIS:</strong> Building interactive vector layers, marker clustering, and custom spatial apps using Leaflet & OpenLayers.
+                </div>
+                <div class="skill-item">
+                    <strong>Spatial Analysis:</strong> Active utilization of QGIS, Netcad, and Google Earth Engine for environmental and regional mapping.
+                </div>
+                <div class="skill-item">
+                    <strong>Remote Sensing:</strong> Processing satellite imagery and assessing environmental changes (such as wildfire severity indices).
+                </div>
+                <div class="skill-item">
+                    <strong>Version Control:</strong> Managing collaborative engineering projects via Git and GitHub workflows.
+                </div>
+            </div>
         </section>
 
-        <!-- Assignment Rule: Structured Table with Visual Logos (%10 Points) -->
-        <section>
-            <h2>Technologies I Use</h2>
-            <p>Below are the fundamental web technologies and tools I am actively utilizing throughout this course and assignment:</p>
+        <!-- Technologies Table with Visual Logos -->
+        <section class="content-section">
+            <h2>🛠️ Technologies I Use</h2>
+            <p>Below are the fundamental web technologies and tools utilized throughout this course:</p>
             
-            <table>
-                <thead>
-                    <tr>
-                        <th>Logo</th>
-                        <th>Technology</th>
-                        <th>Purpose of Use</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" alt="HTML5 Logo" width="35"></td>
-                        <td>HTML5</td>
-                        <td>Structuring the layout and core content of the web page.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" alt="CSS3 Logo" width="35"></td>
-                        <td>CSS3</td>
-                        <td>Styling the layout, managing colors, and implementing engaging animations.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png" alt="Git Logo" width="35"></td>
-                        <td>Git / GitHub</td>
-                        <td>Managing version control and tracking changes across multiple commit days.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Logo</th>
+                            <th>Technology</th>
+                            <th>Purpose of Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" alt="HTML5 Logo" width="35"></td>
+                            <td><strong>HTML5</strong></td>
+                            <td>Structuring the layout and core semantic content of the web page.</td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" alt="CSS3 Logo" width="35"></td>
+                            <td><strong>CSS3</strong></td>
+                            <td>Styling layouts, managing modern color palettes, and smooth animations.</td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png" alt="Git Logo" width="35"></td>
+                            <td><strong>Git / GitHub</strong></td>
+                            <td>Managing version control, tracking commits, and deploying live pages.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Personal Hobbies & Interests Section -->
+        <section class="content-section">
+            <h2>🎧 Beyond the Maps: My World & Hobbies</h2>
+            <p>When I am not deep into spatial data or coding, here is what brings color to my daily life:</p>
+            
+            <div class="hobbies-grid">
+                <div class="hobby-card">
+                    <span>🎵</span>
+                    <h3>Music & Concerts</h3>
+                    <p>Following album releases, collecting vinyl records, and experiencing the energy of live gigs.</p>
+                </div>
+                <div class="hobby-card">
+                    <span>📖</span>
+                    <h3>Reading & Journaling</h3>
+                    <p>Getting lost in engaging books that finish in one sitting and maintaining a personal journal.</p>
+                </div>
+                <div class="hobby-card">
+                    <span>✨</span>
+                    <h3>Creative Crafts</h3>
+                    <p>Working on custom diamond paintings, knitting projects, and hands-on creative designs.</p>
+                </div>
+                <div class="hobby-card">
+                    <span>☕</span>
+                    <h3>Exploring & Capturing</h3>
+                    <p>Discovering new spots, taking aesthetic snapshots, and enjoying cozy coffee breaks.</p>
+                </div>
+            </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>© 2026 GMT 458 Web GIS Assignment. All Rights Reserved.</p>
+        <p>© 2026 GMT 458 Web GIS Assignment | Designed by Büşra Başoğlu 🌍</p>
     </footer>
 
 </body>
 </html>
-

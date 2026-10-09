@@ -1,182 +1,287 @@
-/* =========================================
-   GENERAL PAGE STYLING
-   ========================================= */
+/* --- Global Styles & Variables --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
-    margin: 0;
-    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    color: #334155;
     line-height: 1.6;
-    animation: fadeIn 1s ease-in; /* Eklenen hafif sayfa yüklenme efekti */
+    min-height: 100vh;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-
-/* =========================================
-   NAVIGATION MENU
-   ========================================= */
-
+/* --- Uniform Navigation Bar --- */
 nav {
-    background-color: #2c3e50;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-nav a {
-    color: #fff;
+.nav-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+}
+
+.nav-logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #2563eb;
+    letter-spacing: 0.5px;
+}
+
+.nav-links a {
     text-decoration: none;
-    font-weight: bold;
-    padding: 8px 16px;
-    transition: background 0.3s;
+    color: #64748b;
+    margin-left: 1.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-nav a:hover {
-    background-color: #34495e;
-    border-radius: 4px;
+/* Fareyle üzerine gelince harf büyütme ve renk koyulaşma efekti */
+.nav-links a:hover, .nav-links a.active {
+    color: #1d4ed8;
+    transform: scale(1.08);
+    display: inline-block;
+    font-weight: 600;
 }
 
-nav a.active {
-    background-color: #1abc9c;
-    border-radius: 4px;
+/* --- Main Container --- */
+.container {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
 }
 
+/* --- Animations --- */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-/* =========================================
-   PROFILE IMAGE
-   ========================================= */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-title {
+    text-align: center;
+    font-size: 2.3rem;
+    color: #1e293b;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+/* --- Cards & Content Sections --- */
+.content-section, .profile-card, .contact-card {
+    background: #ffffff;
+    padding: 2.2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Kartların üzerine gelince hafif kabarma efekti */
+.content-section:hover, .profile-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.09);
+}
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-left: 6px solid #2563eb;
+}
 
 .profile-img {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #1abc9c;
-    margin-bottom: 15px;
-    display: block;
+    border: 4px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    transition: transform 0.4s ease;
 }
 
+/* Profil fotoğrafına hover olunca büyüme efekti */
+.profile-img:hover {
+    transform: scale(1.05);
+}
 
-/* =========================================
-   TABLE
-   ========================================= */
+.profile-info h2, .content-section h2 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+
+/* --- Skills & Lists --- */
+.skill-item {
+    background: #f8fafc;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+    margin-bottom: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+    background: #f1f5f9;
+    padding-left: 1.5rem;
+}
+
+/* --- Tables with Hover Effects --- */
+.table-container {
+    overflow-x: auto;
+}
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
+    margin-top: 1rem;
 }
 
-th,
-td {
-    padding: 12px 15px;
+th, td {
+    padding: 14px 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 th {
-    background-color: #34495e;
-    color: white;
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: 600;
 }
 
-/* Tablo satırlarına hafif hareket ve yumuşak geçiş eklendi */
 tr {
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 tr:hover {
-    background-color: #f5f5f5;
-    transform: translateX(4px); 
+    background-color: #f8fafc;
 }
 
-
-/* =========================================
-   TITLE ANIMATION (Mevcut animasyonun korundu)
-   ========================================= */
-
-.animate-title {
-    color: #2c3e50;
-    animation: slideDown 1.5s ease-out;
-}
-
-@keyframes slideDown {
-    0% {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* =========================================
-   TABLE IMAGE ANIMATION (Mevcut animasyonun korundu)
-   ========================================= */
-
-table img {
+/* Tablodaki logolara hover efekti ekledik */
+tr td img {
     transition: transform 0.3s ease;
-    vertical-align: middle;
+}
+tr:hover td img {
+    transform: scale(1.2);
 }
 
-table img:hover {
-    transform: scale(1.3) rotate(5deg);
+/* --- Hobbies Cards Grid (Animasyonlu ve Figür Büyümeli) --- */
+.hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.2rem;
 }
 
-
-/* =========================================
-   MAP SECTIONS
-   ========================================= */
-
-.map-section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.hobby-card {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-top: 4px solid #f43f5e;
 }
 
-.map-section:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+/* Figürlerin ve kartın hover anındaki hareketli büyüme efekti */
+.hobby-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(244, 63, 94, 0.15);
+    background: #ffffff;
 }
 
-
-/* =========================================
-   MAP SIZE
-   ========================================= */
-
-#leafletMap,
-#openLayersMap {
-    width: 100%;
-    height: 400px;
-    border: 2px solid #34495e;
-    border-radius: 6px;
-    margin-top: 15px;
+.hobby-card span {
+    font-size: 2.3rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: transform 0.3s ease;
 }
 
+.hobby-card:hover span {
+    transform: scale(1.25) rotate(5deg); /* Üzerine gelince figür büyür ve hafif döner */
+}
 
-/* =========================================
-   FOOTER
-   ========================================= */
+.hobby-card h3 {
+    font-size: 1.05rem;
+    color: #1e293b;
+    margin-bottom: 0.4rem;
+}
 
+.hobby-card p {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* --- Contact Page Specific Styles --- */
+.contact-links {
+    list-style: none;
+    margin-top: 1.2rem;
+}
+
+.contact-links li {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+
+.contact-links a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.contact-links a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* --- Footer --- */
 footer {
     text-align: center;
-    margin-top: 30px;
-    color: #666;
-    font-size: 14px;
+    padding: 2rem;
+    color: #64748b;
+    font-size: 0.9rem;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 3rem;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.03);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 650px) {
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-img {
+        margin: 0 auto;
+    }
+    .nav-container {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    .nav-links a {
+        margin: 0 0.8rem;
+    }
 }

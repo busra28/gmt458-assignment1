@@ -1,230 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>GMT 458 - Interactive Web GIS Maps</title>
-
-    <!-- =========================================
-         OUR CSS
-         ========================================= -->
+    <title>Maps (Web GIS) - Büşra Başoğlu</title>
+    <!-- Linking our CSS style sheet -->
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <!-- OpenLayers CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.css">
 
-    <!-- =========================================
-         LEAFLET
-         ========================================= -->
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    >
-    <script
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-    </script>
-
-    <!-- =========================================
-         LEAFLET MARKER CLUSTER
-         ========================================= -->
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
-    >
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
-    >
-    <script
-        src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js">
-    </script>
-
-    <!-- =========================================
-         OPENLAYERS
-         ========================================= -->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/ol@10.11.0/ol.css"
-    >
-    <script
-        src="https://cdn.jsdelivr.net/npm/ol@10.11.0/dist/ol.js">
-    </script>
+    <style>
+        .map-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .map-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .map-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            border-top: 4px solid #2563eb;
+        }
+        .map-card h2 {
+            margin-top: 0;
+            font-size: 1.15rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        .tech-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.8rem;
+        }
+        .map {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
 </head>
-
 <body>
 
-    <!-- =========================================
-         NAVIGATION
-         ========================================= -->
+    <!-- Uniform Navigation Menu -->
     <nav>
-        <a href="index.html">About Me</a>
-        |
-        <a href="maps.html" class="active">Maps (Web GIS)</a>
-        |
-        <a href="social.html">Contact</a>
+        <div class="nav-container">
+            <span class="nav-logo">Büşra Başoğlu |</span>
+            <div class="nav-links">
+                <a href="index.html">About Me</a>
+                <a href="maps.html" class="active">Maps (Web GIS)</a>
+                <a href="social.html">Contact</a>
+            </div>
+        </div>
     </nav>
 
-    <!-- =========================================
-         MAIN CONTENT
-         ========================================= -->
-    <main>
-        <h1 class="animate-title">
-            Interactive Web GIS Applications
-        </h1>
-        <p>
-            Welcome to my map journal! Below are the interactive maps
-            demonstrating multi-scale spatial tracking: nationwide cluster analysis and local city-level mapping.
-        </p>
+    <main class="container">
+        <h1 class="animate-title">My Geographical Routes & Locations 🌍</h1>
+        <p class="subtitle" style="text-align: center; color: #64748b; margin-top: -1rem; margin-bottom: 2rem;">Macro and micro-scale map application created with Leaflet and OpenLayers libraries.</p>
+        
+        <div class="map-grid">
+            <!-- 1. World Map (Leaflet) -->
+            <div class="map-card">
+                <span class="tech-badge">Library: Leaflet.js</span>
+                <h2>🌐 World - Dream Travel Routes</h2>
+                <div id="leaflet-map" class="map"></div>
+            </div>
 
-        <!-- =========================================
-             LEAFLET MAP (TÜRKİYE GENELİ)
-             ========================================= -->
-        <section class="map-section">
-            <h2>
-                1. Nationwide Travel Destinations in Türkiye (Leaflet Clustering)
-            </h2>
-            <p>
-                <strong>Macro Scale Feature:</strong>
-                A nationwide overview covering major destinations across Türkiye with dynamic marker clustering and strict boundary rules.
-            </p>
-            <div id="leafletMap"></div>
-        </section>
-
-        <!-- =========================================
-             OPENLAYERS MAP (ANKARA GENELİ)
-             ========================================= -->
-        <section class="map-section">
-            <h2>
-                2. Local City-Level Tracking: Ankara Focus (OpenLayers)
-            </h2>
-            <p>
-                <strong>Micro Scale Feature:</strong>
-                A localized city-level tracking map centered specifically over Ankara, highlighting key landmarks with custom vector features and boundary containment.
-            </p>
-            <div id="openLayersMap"></div>
-        </section>
+            <!-- 2. Ankara Map (OpenLayers) -->
+            <div class="map-card">
+                <span class="tech-badge" style="background: #fef3c7; color: #b45309;">Library: OpenLayers</span>
+                <h2>📍 Ankara - My Favorite Local Spots</h2>
+                <div id="openlayers-map" class="map"></div>
+            </div>
+        </div>
     </main>
 
-    <!-- =========================================
-         FOOTER
-         ========================================= -->
+    <!-- Footer -->
     <footer>
-        <p>
-            © 2026 GMT 458 Web GIS Assignment.
-            All Rights Reserved.
-        </p>
+        <p>© 2026 GMT 458 Web GIS Assignment | Designed by Büşra Başoğlu 🌍</p>
     </footer>
 
-    <!-- =========================================
-         JAVASCRIPT
-         ========================================= -->
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet MarkerCluster JS -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <!-- OpenLayers JS -->
+    <script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
+
     <script>
-        /* =========================================
-           1. LEAFLET MAP (Türkiye Geneli)
-           ========================================= */
+        // 1. LEAFLET: World Map
+        const leafletMap = L.map('leaflet-map', {
+            zoomSnap: 0.5,
+            zoomDelta: 0.5,
+            wheelPxPerZoomLevel: 120
+        }).setView([48.0, 10.0], 3);
 
-        const turkeyCenter = [39.0, 35.0];
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: 'Tiles &copy; Esri'
+        }).addTo(leafletMap);
 
-        const leafletMap = L.map('leafletMap', {
-            maxBounds: L.latLngBounds(
-                L.latLng(-90, -180),
-                L.latLng(90, 180)
-            ),
-            maxBoundsViscosity: 1.0
-        }).setView(turkeyCenter, 6);
+        const markers = L.markerClusterGroup();
+        const worldLocations = [
+            { name: "Prague, Czech Republic", coords: [50.0755, 14.4378], desc: "Historic city to visit and explore." },
+            { name: "Vienna, Austria", coords: [48.2082, 16.3738], desc: "City of music and art." },
+            { name: "Dublin, Ireland", coords: [53.3498, -6.2603], desc: "Fascinating nature and culture." },
+            { name: "Barcelona, Spain", coords: [41.3851, 2.1734], desc: "Architecture and Mediterranean vibe." },
+            { name: "Oslo, Norway", coords: [59.9139, 10.7522], desc: "Scandic breathtaking nature." },
+            { name: "Helsinki, Finland", coords: [60.1699, 24.9384], desc: "Peaceful capital of the north." },
+            { name: "London, UK", coords: [51.5074, -0.1278], desc: "Culture and travel hub." },
+            { name: "Rome, Italy", coords: [41.9028, 12.4964], desc: "Ancient history and delicious cuisine." },
+            { name: "Tokyo, Japan", coords: [35.6762, 139.6503], desc: "Amazing far-east experience." }
+        ];
 
-        L.tileLayer(
-            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {
-                attribution: '&copy; OpenStreetMap contributors',
-                noWrap: true,
-                maxZoom: 19
-            }
-        ).addTo(leafletMap);
-
-        const markersClusterGroup = L.markerClusterGroup();
-
-        const cappadocia = L.marker([38.6431, 34.8289])
-            .bindPopup('<b>Cappadocia 🎈</b><br>Famous for hot air balloons and fairy chimneys.');
-
-        const ephesus = L.marker([37.9409, 27.3415])
-            .bindPopup('<b>Ephesus Ancient City 🏛️</b><br>An incredible historic marvel in Izmir.');
-
-        const sumela = L.marker([40.6901, 39.6583])
-            .bindPopup('<b>Sumela Monastery 🏔️</b><br>Historic cliffside monastery in Trabzon.');
-
-        const kas = L.marker([36.2023, 29.6354])
-            .bindPopup('<b>Kas, Antalya 🌊</b><br>Stunning coastal escape with turquoise waters.');
-
-        markersClusterGroup.addLayer(cappadocia);
-        markersClusterGroup.addLayer(ephesus);
-        markersClusterGroup.addLayer(sumela);
-        markersClusterGroup.addLayer(kas);
-
-        leafletMap.addLayer(markersClusterGroup);
-
-
-        /* =========================================
-           2. OPENLAYERS MAP (Ankara Geneli / Yerel Ölçek)
-           ========================================= */
-
-        // Ankara koordinatları [Boylam, Enlem] -> [32.8597, 39.9334]
-        const ankaraCenter = ol.proj.fromLonLat([32.8597, 39.9334]);
-
-        const openLayersMap = new ol.Map({
-            target: 'openLayersMap',
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM({
-                        wrapX: false
-                    })
-                })
-            ],
-            view: new ol.View({
-                center: ankaraCenter,
-                zoom: 12, // Ankara sokak/semt detayını gösteren yerel zoom seviyesi
-                extent: ol.proj.transformExtent(
-                    [32.0, 39.0, 33.5, 40.5], // Ankara ve yakın çevresi sınırlandırması
-                    'EPSG:4326',
-                    'EPSG:3857'
-                )
-            })
+        worldLocations.forEach(loc => {
+            const marker = L.marker(loc.coords);
+            marker.bindPopup(`<b>${loc.name}</b><br>${loc.desc}`);
+            markers.addLayer(marker);
         });
+        leafletMap.addLayer(markers);
 
-        // Ankara içindeki önemli noktalar
-        const ankaraPoints = [
-            { coords: [32.8543, 39.9255], title: 'Anıtkabir 🇹🇷', desc: 'The monumental mausoleum of Mustafa Kemal Atatürk.' },
-            { coords: [32.8541, 39.9208], title: 'Kızılay Square 🏙️', desc: 'The vibrant heart and center of Ankara.' },
-            { coords: [32.8575, 39.8912], title: 'Atakule 🗼', desc: 'The iconic observation tower overlooking the city.' },
-            { coords: [32.7878, 39.8906], title: 'METU (ODTÜ) 🌳', desc: 'Sprawling green campus and academic hub.' }
+        // 2. OPENLAYERS: Ankara Map
+        const ankaraLocations = [
+            { name: "Botanic Park", coords: [32.8597, 39.8901], desc: "Green oasis in the heart of the city." },
+            { name: "Bahçelievler 7th Street", coords: [32.8250, 39.9130], desc: "Enjoyable walks and meeting spot." },
+            { name: "Tunalı Hilmi Avenue", coords: [32.8611, 39.9125], desc: "Vibrant and nostalgic street of Ankara." },
+            { name: "Dikmen Valley", coords: [32.8500, 39.8833], desc: "Favorite nature and walking tracks." },
+            { name: "Armada Hayat Street", coords: [32.8083, 39.9167], desc: "Social hub and vibrant venues." },
+            { name: "Eymir Lake", coords: [32.8430, 39.8350], desc: "Peaceful escape into nature." },
+            { name: "Kızılay Square", coords: [32.8541, 39.9208], desc: "The bustling center of the city." }
         ];
 
         const vectorSource = new ol.source.Vector();
-
-        ankaraPoints.forEach(pt => {
-            const feature = new ol.Feature({
-                geometry: new ol.geom.Point(ol.proj.fromLonLat(pt.coords)),
-                name: pt.title,
-                description: pt.desc
+        ankaraLocations.forEach(loc => {
+            const iconFeature = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.fromLonLat(loc.coords)),
+                name: loc.name,
+                description: loc.desc
             });
-            vectorSource.addFeature(feature);
+            vectorSource.addFeature(iconFeature);
         });
 
         const vectorLayer = new ol.layer.Vector({
             source: vectorSource,
             style: new ol.style.Style({
                 image: new ol.style.Circle({
-                    radius: 9,
-                    fill: new ol.style.Fill({ color: '#e91e63' }),
+                    radius: 8,
+                    fill: new ol.style.Fill({ color: '#e74c3c' }),
                     stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
                 })
             })
         });
 
-        openLayersMap.addLayer(vectorLayer);
+        const openlayersMap = new ol.Map({
+            target: 'openlayers-map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.XYZ({
+                        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+                        attributions: 'Tiles &copy; Esri'
+                    })
+                }),
+                vectorLayer
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([32.8541, 39.9208]),
+                zoom: 12,
+                smoothResolutionConstraint: true,
+                constrainResolution: false
+            })
+        });
     </script>
 </body>
 </html>
-
-
-
-
