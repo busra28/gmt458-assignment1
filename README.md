@@ -1,60 +1,61 @@
-# GMT 458 - Web GIS Assignment 
+# 🌍 GMT 458 Web GIS Personal Portfolio & Interactive Maps
 
-Welcome to my personal Web GIS assignment repository! This project showcases interactive web mapping applications built using modern front-end technologies and open-source spatial mapping libraries.
-
----
-
-## 📌 Project Overview
-
-This repository hosts a multi-page web application developed as part of the **GMT 458 (Web GIS)** course at **Hacettepe University, Department of Geomatics/Map Engineering**.
-
-The web application consists of three main pages:
-1. **About Me (`index.html`):** Personal presentation, academic background, geomatics engineering context, and profile branding.
-2. **Maps (`maps.html`):** Interactive Web GIS applications featuring Leaflet.js and OpenLayers.
-3. **Contact (`social.html`):** Contact information and professional networking links.
+**Author:** Büşra Başoğlu  
+**Course:** GMT 458 - Web GIS | Hacettepe University  
+**Live Demo:** [https://busra28.github.io/gmt458-assignment1/](https://busra28.github.io/gmt458-assignment1/)    
 
 ---
 
-## 💡 Solution to Web GIS Technical Issues
-
-As required by the assignment guidelines, the following core web mapping challenges were explicitly addressed in the code:
-
-### 1. Issue 1: Marker Overlap & Zoom Threshold
-* **Challenge:** High marker density causes overlap and visual clutter when zoomed out.
-* **Solution:** Implemented dynamic marker clustering using `Leaflet.markercluster` to group nearby points at lower zoom levels, combined with zoom-level event listeners to control marker visibility dynamically based on map zoom.
-
-### 2. Issue 2: Continuous World Wrapping / Earth Repeating
-* **Challenge:** When zoomed out, tile maps wrap infinitely across the horizontal axis, repeating the globe.
-* **Solution:** Applied map view boundaries and extent limits (e.g., `noWrap: true` on tile layers and view constraints like `maxBounds`) to restrict panning and prevent the world map from repeating itself horizontally.
+## 📌 Project Overview & Aim
+The primary aim of this project is to construct a personalized, interactive Web GIS portfolio utilizing **HTML5, CSS3, OpenLayers, and Leaflet.js**. The website highlights my academic background as a Senior Geomatics/Map Engineering student at Hacettepe University, showcases professional GIS software skills, and provides interactive maps for exploring global vinyl record spots and concert journal memories.
 
 ---
 
-## 🤖 Statement on AI Usage & Development Methodology
+## 🎯 Fulfillment of Course Objectives
 
-In compliance with the course guidelines regarding AI assistance (prioritizing independent research and utilizing AI when needed), here are the specific details of my AI usage:
+### 1. Structure & HTML Files 
+The web application is structured with **4 distinct HTML pages** sharing a cohesive design language:
+* `index.html` - Professional Bio, Geomatics Skills, Experience, and Interactive Nav Cards.
+* `maps.html` - Dual-engine Web GIS mapping interface using **OpenLayers** and **Leaflet.js**.
+* `gallery.html` - Concert journal featuring a clustered Leaflet map, category filters, and upcoming show countdowns.
+* `social.html` - Contact details, GitHub repository, and professional links.
 
-* **Specific Issues/Learnings from AI:** 
-  - Learned how to properly configure custom vector layers and view constraints in OpenLayers to prevent infinite world repeating.
-  - Resolved specific CORS 403 error behaviors encountered when loading third-party tile server basemaps.
-* **Total AI Usage Estimate:** Approximately **1.5 hours** total across the entire development and debugging lifecycle (primarily used for documentation syntax review and troubleshooting specific library integration errors).
-* **Development Principle:** All visual design decisions, architectural structuring, content creation, and code deployment workflows were personally configured, tested, and implemented.
+### 2. Styling, Animations & Tables (20%)
+* **CSS Animations :** Custom `@keyframes fadeInUp` loading animations, smooth `cubic-bezier` hover elevations, and dynamic card transitions.
+* **Tabular Data with Images :** Styled technology and software tables enriched with visual tech logos and interactive row hover effects.
 
----
-
-## 🛠️ Technical Stack & Frameworks
-
-- **Front-End:** HTML5, CSS3 (Poppins typography, responsive layout, CSS grid & flexbox)
-- **Web GIS Libraries:** Leaflet.js v1.9.4, OpenLayers v7.x
-- **Basemaps:** Esri World Imagery / ArcGIS World Street Map
-- **Deployment & Hosting:** GitHub Pages & GitHub Codespaces
+### 3. OpenLayers & Leaflet Web Mapping 
+* **OpenLayers Integration (10%):** Vector layers and micro-scale visualization implemented on `maps.html`.
+* **Leaflet Integration (10%):** Client-side interactive mapping on `maps.html` and `gallery.html`.
 
 ---
 
-## 🌐 Live Website
+## 🛠️ Solutions to Common Web GIS Issues
 
-Access the deployed Web GIS portfolio live on GitHub Pages:
-🔗 **[GMT 458 Web GIS Portfolio](https://busra28.github.io/gmt458-assignment1/)**
+### 📍 Issue 1: Overlapping Markers on Zoom
+* **Problem:** When multiple markers share similar geographic coordinates, they overlap and obscure each other.
+* **Solution:** Integrated `Leaflet.markercluster` plugin (`L.markerClusterGroup`). Configured `spiderfyOnMaxZoom: true` and `zoomToBoundsOnClick: true` so markers automatically cluster at lower zoom levels and spread out upon zooming in.
 
+### 🌐 Issue 2: Earth Repeating Itself Across Map Bounds
+* **Problem:** Horizontal panning allows tile basemaps to wrap infinitely, creating repeating worlds.
+* **Solution:** 
+  1. Set `noWrap: true` on tile layers (`L.tileLayer`).
+  2. Applied strict spatial bounds using `maxBounds: L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180))`.
+  3. Enforced constraint rigidity with `maxBoundsViscosity: 1.0`.
+
+---
+
+## 🤖 AI Usage Declaration
+
+* **What was learned/resolved using AI:**
+  * Consulted for syntax structures and configuration guidelines when implementing Leaflet marker clustering and spatial boundary constraints (`maxBoundsViscosity`).
+  * Used for brainstorming CSS grid layouts, card transitions, and debugging responsive mobile styling issues.
+  * Researched best practices for structuring clean Web GIS HTML/CSS repositories.
+* **Estimated Total AI Usage:** Approximately **2 hours** of collaborative troubleshooting, concept verification, and code optimization throughout the assignment process.
+
+---
+
+© 2026 GMT 458 Web GIS Assignment | Designed by Büşra Başoğlu 💙
 
 
 
