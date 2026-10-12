@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concert Memories Gallery - Büşra Başoğlu🎶</title>
+    <!-- Linking our CSS style sheet -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet Marker Cluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+
+    <style>
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            border-bottom: 3px solid #ec4899;
+        }
+        .stat-card h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #db2777;
+        }
+        .stat-card p {
+            margin: 0.3rem 0 0 0;
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Gelecek Konserler (Upcoming Concerts) Bölümü */
+        .upcoming-section {
+            background: linear-gradient(135deg, #fdf2f8 0%, #f0fdf4 100%);
+            border: 1px solid #fbcfe8;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.06);
+        }
+        .upcoming-section h2 {
+            margin-top: 0;
+            font-size: 1.15rem;
+            color: #be185d;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .upcoming-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        @media (max-width: 768px) {
+            .upcoming-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .upcoming-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            gap: 1rem;
+            border: 1px solid #f3e8ff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .upcoming-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.12);
+        }
+        .upcoming-img {
+            width: 120px;
+            height: 100%;
+            object-fit: cover;
+        }
+        .upcoming-content {
+            padding: 0.8rem 0.8rem 0.8rem 0;
+        }
+        .upcoming-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: #ede9fe;
+            color: #7c3aed;
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            margin-bottom: 0.3rem;
+        }
+        .upcoming-title {
+            font-size: 0.95rem;
+            color: #1e293b;
+            margin: 0 0 0.2rem 0;
+            font-weight: 600;
+        }
+        .upcoming-loc {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.1rem;
+        }
+
+        /* Filtre Butonları */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .filter-btn {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #ec4899;
+            color: white;
+            border-color: #ec4899;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+
+        .gallery-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        @media (max-width: 950px) {
+            .gallery-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        .map-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            border-top: 4px solid #ec4899;
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+        #gallery-map {
+            width: 100%;
+            height: 520px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+        .memories-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .memory-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .memory-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 35px rgba(236, 72, 153, 0.15);
+            border-color: #ec4899;
+        }
+        .memory-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .memory-card:hover .memory-img {
+            transform: scale(1.03);
+        }
+        .memory-content {
+            padding: 1.2rem;
+        }
+        .memory-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: #fce7f3;
+            color: #db2777;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+        .memory-title {
+            font-size: 1.1rem;
+            color: #1e293b;
+            margin: 0 0 0.3rem 0;
+            font-weight: 600;
+        }
+        .memory-location {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 0.6rem;
+        }
+        .memory-desc {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 0.8rem;
+        }
+        /* Setlist & Unutulmaz An Kutusu */
+        .setlist-box {
+            background: #fdf2f8;
+            border-left: 3px solid #ec4899;
+            padding: 0.6rem 0.8rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.8rem;
+            color: #831843;
+            margin-bottom: 1rem;
+        }
+        .map-focus-btn {
+            background: #f1f5f9;
+            color: #334155;
+            border: none;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .map-focus-btn:hover {
+            background: #ec4899;
+            color: white;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+        .leaflet-popup-content img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Uniform Navigation Menu -->
+    <nav>
+        <div class="nav-container">
+            <span class="nav-logo">Büşra Başoğlu🎫🎸</span>
+            <div class="nav-links">
+                <a href="index.html">About Me</a>
+                <a href="maps.html">My Vinyl Map</a>
+                <a href="gallery.html" class="active">My Concert Map</a>
+                <a href="social.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1 class="animate-title">Concert Memories Gallery 🎶📍</h1>
+        <p class="subtitle" style="text-align: center; color: #64748b; margin-top: -1rem; margin-bottom: 2rem;">An interactive Web GIS journal celebrating live concert memories in Türkiye & Europe.</p>
+        
+        <!-- İstatistik Paneli -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>11</h3>
+                <p>🎸 Total Live Shows</p>
+            </div>
+            <div class="stat-card">
+                <h3>2</h3>
+                <p>✈️ Countries Visited</p>
+            </div>
+            <div class="stat-card">
+                <h3>Istanbul, Ankara & Bodrum</h3>
+                <p>📍 Hometown Stages</p>
+            </div>
+        </div>
+
+        <!-- 🔥 Upcoming Concerts Banner -->
+        <section class="upcoming-section">
+            <h2>🔥 Upcoming Concerts</h2>
+            <div class="upcoming-grid">
+                <!-- 1. Çilekeş -->
+                <div class="upcoming-card" onclick="focusMap(39.8900, 32.7800, 14)">
+                    <img src="https://image.passo.com.tr/api/r/tr/p/event/28082026143219-cilekes_270126.jpg" alt="Çilekeş" class="upcoming-img">
+                    <div class="upcoming-content">
+                        <span class="upcoming-badge">19 Ekim</span>
+                        <h3 class="upcoming-title">Çilekeş</h3>
+                        <div class="upcoming-loc">📍 ODTÜ Vişnelik, Ankara</div>
+                    </div>
+                </div>
+
+                <!-- 2. Black Veil Brides -->
+                <div class="upcoming-card" onclick="focusMap(41.0425, 28.9928, 14)">
+                    <img src="https://cdn.bubilet.com.tr/files/Etkinlik/black-veil-brides-20260908135520356-1c74849aaae2.jpg" alt="Black Veil Brides" class="upcoming-img">
+                    <div class="upcoming-content">
+                        <span class="upcoming-badge">13 Şubat 2027</span>
+                        <h3 class="upcoming-title">Black Veil Brides</h3>
+                        <div class="upcoming-loc">📍 KüçükÇiftlik Park / JJ Arena, Istanbul</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Yıl / Kategori Filtre Butonları -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterConcerts('all', this)">All Concerts</button>
+            <button class="filter-btn" onclick="filterConcerts('upcoming', this)">🔥 Upcoming</button>
+            <button class="filter-btn" onclick="filterConcerts('2026', this)">2026 Shows</button>
+            <button class="filter-btn" onclick="filterConcerts('2025', this)">2025 Shows</button>
+            <button class="filter-btn" onclick="filterConcerts('2024', this)">2024 Shows</button>
+            <button class="filter-btn" onclick="filterConcerts('older', this)">Older Shows</button>
+            <button class="filter-btn" onclick="filterConcerts('festival', this)">✨ Festivals</button>
+        </div>
+
+        <div class="gallery-layout">
+            
+            <!-- SOL TARAF: Leaflet Kümelemeli Harita -->
+            <div class="map-section">
+                <h2 style="margin-top: 0; font-size: 1.15rem; color: #1e293b; margin-bottom: 0.8rem;">🗺️ Concert Venues & Memories Map</h2>
+                <div id="gallery-map"></div>
+                <p style="font-size: 0.80rem; color: #64748b; margin-top: 0.8rem; text-align: center;">Click markers or clusters to explore performance memories.</p>
+            </div>
+
+            <!-- SAĞ TARAF: Kişisel Konser Galerisi ve Anılar -->
+            <div class="memories-container" id="cards-container">
+                
+                <!-- Upcoming 1: Çilekeş -->
+                <div class="memory-card" id="card-cilekes" data-category="upcoming 2026">
+                    <img src="https://image.passo.com.tr/api/r/tr/p/event/28082026143219-cilekes_270126.jpg" alt="Çilekeş" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #fef2f2; color: #dc2626;">🔥 Upcoming 19 Ekim</span>
+                        <h2 class="memory-title">Çilekeş @ ODTÜ Vişnelik</h2>
+                        <div class="memory-location">📍 Ankara, Türkiye</div>
+                        <p class="memory-desc">A highly anticipated live comeback show at the iconic ODTÜ Vişnelik stage in Ankara.</p>
+                        <div class="setlist-box">🎵 <b>Countdown:</b> 19 Ekim <br>💬 <i>"Counting down the days for an unforgettable Ankara rock night!"</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(39.8900, 32.7800, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- Upcoming 2: Black Veil Brides -->
+                <div class="memory-card" id="card-bvb" data-category="upcoming 2027">
+                    <img src="https://cdn.bubilet.com.tr/files/Etkinlik/black-veil-brides-20260908135520356-1c74849aaae2.jpg" alt="Black Veil Brides" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #ede9fe; color: #7c3aed;">🔥 Upcoming 13 Şubat 2027</span>
+                        <h2 class="memory-title">Black Veil Brides @ KüçükÇiftlik Park / JJ Arena</h2>
+                        <div class="memory-location">📍 Istanbul, Türkiye</div>
+                        <p class="memory-desc">Heavy rock riffs, massive stage production, and an epic night in Istanbul.</p>
+                        <div class="setlist-box">🎵 <b>Countdown:</b> 13 Şubat 2027 <br>💬 <i>"Eagerly waiting for an energetic rock concert atmosphere!"</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(41.0425, 28.9928, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 1. Harry Styles (2026) -->
+                <div class="memory-card" id="card-harry" data-category="2026">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkfyiohBNJ6pBj9v0NQUESRdMIhofT6yuEoqJirY75ZpEpBa89aXv-U4Qg&s=10" alt="Harry Styles" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #e0f2fe; color: #0369a1;">Stadium Tour 2026</span>
+                        <h2 class="memory-title">Harry Styles @ Johan Cruijff ArenA</h2>
+                        <div class="memory-location">📍 Amsterdam, Netherlands</div>
+                        <p class="memory-desc">A dazzling stadium sea of vibrant concert fashion, joyful pop anthems, and stadium energy.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Fine Line" <br>💬 <i>"A dazzling sea of glitter and pure joy."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(52.3144, 4.9419, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 2. Three Days Grace (2026) -->
+                <div class="memory-card" id="card-threedays" data-category="2026">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRODq_j1FsjOP3AfrHaP4d5-xFIRqI82H95qLao-HrDuix2fMWHsRNsCAMo&s=10" alt="Three Days Grace" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #fef2f2; color: #dc2626;">Rock 2026</span>
+                        <h2 class="memory-title">Three Days Grace @ Küçükçiftlik Park</h2>
+                        <div class="memory-location">📍 Istanbul, Türkiye</div>
+                        <p class="memory-desc">High-energy rock anthems and unforgettable heavy guitar riffs in the heart of Istanbul.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Gone Forever, World So Cold" <br>💬 <i>"Pure adrenaline rush from the very first chord!"</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(41.0425, 28.9928, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 3. Manifest (2026 & Festival) -->
+                <div class="memory-card" id="card-manifest" data-category="2026 festival">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkYGLq4Z-Iss_XfMMJ0LWzl08lXZS6EJ3wbMV_2WGxrRJtUol7Zun_APbs&s=10" alt="Manifest" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #ffe4e6; color: #e11d48;">Festival 2026</span>
+                        <h2 class="memory-title">Manifest @ Atatürk Orman Çiftliği</h2>
+                        <div class="memory-location">📍 Ankara, Türkiye</div>
+                        <p class="memory-desc">Enjoying fantastic live festival sets and great music moments surrounded by nature in Ankara.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Outro, Daha iyi" <br>💬 <i>"Great music moments surrounded by nature in Ankara."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(39.9334, 32.7950, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 4. Zara Larsson (2026) -->
+                <div class="memory-card" id="card-zara" data-category="2026">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWaTy7Uw46HSDJNbDT9-qWqIkGHrKqpEBrC3R_lS8kk4xIu65v7bUYUaM&s=10" alt="Zara Larsson" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #fae8ff; color: #c084fc;">Pop Night 2026</span>
+                        <h2 class="memory-title">Zara Larsson @ Parkorman</h2>
+                        <div class="memory-location">📍 Istanbul, Türkiye</div>
+                        <p class="memory-desc">Electrifying pop hits, dance choreography, and a wonderful concert night in the forest.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Uncover" <br>💬 <i>"Amazing dance choreography under the forest trees."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(41.1114, 29.0236, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 5. Aurora (2025) -->
+                <div class="memory-card" id="card-aurora" data-category="2025">
+                    <img src="https://www.evrensel.net/images/1280/upload/dosya/299104.jpg" alt="Aurora" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #fce7f3; color: #db2777;">Live 2025</span>
+                        <h2 class="memory-title">Aurora @ Küçükçiftlik Park</h2>
+                        <div class="memory-location">📍 Istanbul, Türkiye</div>
+                        <p class="memory-desc">An ethereal and magical evening under the open sky, experiencing Aurora's unique vocals.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Running With Wolves, Runaway" <br>💬 <i>"The vocals live gave me goosebumps instantly."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(41.0422, 28.9925, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 6. Black Eyed Peas (2025 & Festival) -->
+                <div class="memory-card" id="card-bep" data-category="2025 festival">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoAhnwjh9I2ndaR2uigNFLbzAZIVZoDZnZKn_l9v6p8sJZRCTPQq4UGgY&s=10" alt="Black Eyed Peas" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #ede9fe; color: #7c3aed;">Festival 2025</span>
+                        <h2 class="memory-title">Black Eyed Peas @ Yenikapı</h2>
+                        <div class="memory-location">📍 Istanbul, Türkiye</div>
+                        <p class="memory-desc">Iconic hip-hop anthems, massive crowd singalongs, and festival vibes by the seaside.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "I Gotta Feeling" <br>💬 <i>"The whole seaside venue was glowing under the lights."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(41.0025, 28.9500, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 7. David Guetta (2024 & Festival) -->
+                <div class="memory-card" id="card-guetta" data-category="2024 festival">
+                    <img src="https://kultur.istanbul/gorsel/2024/07/27052024142518-7_eylul_passo_gorseli.jpg" alt="David Guetta" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #e0f2fe; color: #0284c7;">Electronic Night 2024</span>
+                        <h2 class="memory-title">David Guetta @ Yenikapı</h2>
+                        <div class="memory-location">📍 Istanbul, Türkiye</div>
+                        <p class="memory-desc">Electrifying electronic dance music beats, laser shows, and endless party energy.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Titanium" <br>💬 <i>"Unstoppable energy and massive laser shows."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(41.0030, 28.9510, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 8. Louis Tomlinson (2024 & Yenikapı) -->
+                <div class="memory-card" id="card-louis" data-category="2024">
+                    <img src="https://plsn.com/site/wp-content/uploads/LOUIS-TOMLINSON-1-%C2%A9-Steve-Jennings.jpg" alt="Louis Tomlinson" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #fce7f3; color: #db2777;">Live 2024</span>
+                        <h2 class="memory-title">Louis Tomlinson @ Yenikapı</h2>
+                        <div class="memory-location">📍 Yenikapı, Istanbul</div>
+                        <p class="memory-desc">An unforgettable outdoor night filled with electrifying indie-rock energy and crowd anthems.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Lucid, All This Time" <br>💬 <i>"An unforgettable night singing along by the seaside!"</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(41.0025, 28.9500, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 9. Duman (2024) -->
+                <div class="memory-card" id="card-duman" data-category="2024">
+                    <img src="https://dokuzeylulcom.teimg.com/dokuzeylul-com/uploads/2023/07/foto-galeriler/duman/duman5.jpg" alt="Duman" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #d1fae5; color: #059669;">Rock 2024</span>
+                        <h2 class="memory-title">Duman @ Bodrum Antik Tiyatro</h2>
+                        <div class="memory-location">📍 Bodrum, Muğla</div>
+                        <p class="memory-desc">Singing along to legendary rock ballads under Mediterranean stars in the historic antique theatre.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Seni Kendime Sakladım" <br>💬 <i>"Singing under the ancient theatre stars was magical."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(37.0344, 27.4305, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 10. Pinhani (2024) -->
+                <div class="memory-card" id="card-pinhani" data-category="2024">
+                    <img src="https://www.gazetehalk.com.tr/wp-content/uploads/2025/10/pinhani-konseri-10.jpeg" alt="Pinhani" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #fef3c7; color: #b45309;">Anadolu Rock 2024</span>
+                        <h2 class="memory-title">Pinhani @ Küçükçiftlik Park</h2>
+                        <div class="memory-location">📍 Istanbul, Türkiye</div>
+                        <p class="memory-desc">A nostalgic open-air night filled with emotional lyrics and warm indie rock harmonies.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Sakinleştim, Dön Bak Dünyaya" <br>💬 <i>"Warm, emotional acoustic harmonies in the heart of Istanbul."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(41.0420, 28.9922, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+                <!-- 11. Hayko Cepkin (Older) -->
+                <div class="memory-card" id="card-hayko" data-category="older">
+                    <img src="https://img.odatv.com/rcman/Cw820h547q95gm/storage/files/images/2026/09/14/hayko6-w576.jpg" alt="Hayko Cepkin" class="memory-img">
+                    <div class="memory-content">
+                        <span class="memory-badge" style="background: #fef3c7; color: #b45309;">Classic Show</span>
+                        <h2 class="memory-title">Hayko Cepkin @ Ankara Vişnelik</h2>
+                        <div class="memory-location">📍 Ankara, Türkiye</div>
+                        <p class="memory-desc">A powerhouse theatrical rock performance filled with raw energy and hometown concert vibes.</p>
+                        <div class="setlist-box">🎵 <b>Favorite Track:</b> "Fırtınam" <br>💬 <i>"Hometown stage presence on another level."</i></div>
+                        <button class="map-focus-btn" onclick="focusMap(39.8900, 32.7800, 14)">📍 Focus on Map</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 GMT 458 Web GIS Assignment | Designed by Büşra Başoğlu 🌍</p>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet Marker Cluster JS -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+    <script>
+        // Harita Sınırları ve Sabitleme
+        const southWest = L.latLng(-85, -180);
+        const northEast = L.latLng(85, 180);
+        const worldBounds = L.latLngBounds(southWest, northEast);
+
+        const galleryMap = L.map('gallery-map', {
+            zoomSnap: 0.5,
+            zoomDelta: 0.5,
+            minZoom: 2,
+            maxZoom: 18,
+            maxBounds: worldBounds,
+            maxBoundsViscosity: 1.0
+        }).setView([43.0, 25.0], 4.5);
+
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            noWrap: true,
+            bounds: worldBounds,
+            attribution: 'Tiles &copy; Esri'
+        }).addTo(galleryMap);
+
+        const markersCluster = L.markerClusterGroup({
+            spiderfyOnMaxZoom: true,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: true
+        });
+
+        // Gelecek Konserler de Harita Listesine Eklendi
+        const concertMemories = [
+            { name: "🔥 Çilekeş @ ODTÜ Vişnelik (19 Ekim)", coords: [39.8900, 32.7800], img: "https://image.passo.com.tr/api/r/tr/p/event/28082026143219-cilekes_270126.jpg", desc: "Ankara, Türkiye", cardId: "card-cilekes", category: "upcoming 2026" },
+            { name: "🔥 Black Veil Brides @ KüçükÇiftlik Park (13 Feb 2027)", coords: [41.0425, 28.9928], img: "https://cdn.bubilet.com.tr/files/Etkinlik/black-veil-brides-20260908135520356-1c74849aaae2.jpg", desc: "Istanbul, Türkiye", cardId: "card-bvb", category: "upcoming 2027" },
+            { name: "Harry Styles @ Johan Cruijff ArenA", coords: [52.3144, 4.9419], img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkfyiohBNJ6pBj9v0NQUESRdMIhofT6yuEoqJirY75ZpEpBa89aXv-U4Qg&s=10", desc: "Amsterdam, Netherlands", cardId: "card-harry", category: "2026" },
+            { name: "Three Days Grace @ Küçükçiftlik Park", coords: [41.0425, 28.9928], img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRODq_j1FsjOP3AfrHaP4d5-xFIRqI82H95qLao-HrDuix2fMWHsRNsCAMo&s=10", desc: "Istanbul, Türkiye", cardId: "card-threedays", category: "2026" },
+            { name: "Manifest @ AOÇ", coords: [39.9334, 32.7950], img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkYGLq4Z-Iss_XfMMJ0LWzl08lXZS6EJ3wbMV_2WGxrRJtUol7Zun_APbs&s=10", desc: "Ankara, Türkiye", cardId: "card-manifest", category: "2026 festival" },
+            { name: "Zara Larsson @ Parkorman", coords: [41.1114, 29.0236], img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWaTy7Uw46HSDJNbDT9-qWqIkGHrKqpEBrC3R_lS8kk4xIu65v7bUYUaM&s=10", desc: "Istanbul, Türkiye", cardId: "card-zara", category: "2026" },
+            { name: "Aurora @ Küçükçiftlik Park", coords: [41.0422, 28.9925], img: "https://www.evrensel.net/images/1280/upload/dosya/299104.jpg", desc: "Istanbul, Türkiye", cardId: "card-aurora", category: "2025" },
+            { name: "Black Eyed Peas @ Yenikapı", coords: [41.0025, 28.9500], img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoAhnwjh9I2ndaR2uigNFLbzAZIVZoDZnZKn_l9v6p8sJZRCTPQq4UGgY&s=10", desc: "Istanbul, Türkiye", cardId: "card-bep", category: "2025 festival" },
+            { name: "David Guetta @ Yenikapı", coords: [41.0030, 28.9510], img: "https://kultur.istanbul/gorsel/2024/07/27052024142518-7_eylul_passo_gorseli.jpg", desc: "Istanbul, Türkiye", cardId: "card-guetta", category: "2024 festival" },
+            { name: "Louis Tomlinson @ Yenikapı", coords: [41.0025, 28.9500], img: "https://plsn.com/site/wp-content/uploads/LOUIS-TOMLINSON-1-%C2%A9-Steve-Jennings.jpg", desc: "Yenikapı, Istanbul", cardId: "card-louis", category: "2024" },
+            { name: "Duman @ Bodrum Antik Tiyatro", coords: [37.0344, 27.4305], img: "https://dokuzeylulcom.teimg.com/dokuzeylul-com/uploads/2023/07/foto-galeriler/duman/duman5.jpg", desc: "Bodrum, Muğla", cardId: "card-duman", category: "2024" },
+            { name: "Pinhani @ Küçükçiftlik Park", coords: [41.0420, 28.9922], img: "https://www.gazetehalk.com.tr/wp-content/uploads/2025/10/pinhani-konseri-10.jpeg", desc: "Istanbul, Türkiye", cardId: "card-pinhani", category: "2024" },
+            { name: "Hayko Cepkin @ Vişnelik", coords: [39.8900, 32.7800], img: "https://img.odatv.com/rcman/Cw820h547q95gm/storage/files/images/2026/09/14/hayko6-w576.jpg", desc: "Ankara, Türkiye", cardId: "card-hayko", category: "older" }
+        ];
+
+        let markersList = [];
+
+        concertMemories.forEach(item => {
+            const marker = L.marker(item.coords);
+            const popupContent = `
+                <div style="text-align: center; max-width: 150px;">
+                    <b style="font-size: 0.85rem; color: #1e293b;">${item.name}</b>
+                    <p style="font-size: 0.75rem; color: #64748b; margin: 3px 0;">${item.desc}</p>
+                    <img src="${item.img}" alt="${item.name}">
+                </div>
+            `;
+            marker.bindPopup(popupContent);
+
+            marker.on('click', () => {
+                const card = document.getElementById(item.cardId);
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.style.borderColor = '#ec4899';
+                    setTimeout(() => { card.style.borderColor = '#e2e8f0'; }, 2000);
+                }
+            });
+
+            markersCluster.addLayer(marker);
+            markersList.push({ marker: marker, category: item.category, cardId: item.cardId });
+        });
+
+        galleryMap.addLayer(markersCluster);
+
+        setTimeout(() => { galleryMap.invalidateSize(); }, 500);
+
+        function focusMap(lat, lon, zoomLevel) {
+            galleryMap.setView([lat, lon], zoomLevel, { animate: true, duration: 1.0 });
+        }
+
+        // Filtreleme Fonksiyonu
+        function filterConcerts(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            markersCluster.clearLayers();
+            let groupBounds = [];
+
+            markersList.forEach(item => {
+                const card = document.getElementById(item.cardId);
+                const itemCat = item.category || '';
+                
+                if (category === 'all' || itemCat.includes(category)) {
+                    if (card) card.style.display = 'block';
+                    markersCluster.addLayer(item.marker);
+                    groupBounds.push(item.marker.getLatLng());
+                } else {
+                    if (card) card.style.display = 'none';
+                }
+            });
+
+            galleryMap.addLayer(markersCluster);
+
+            if (groupBounds.length > 0) {
+                galleryMap.fitBounds(L.latLngBounds(groupBounds).pad(0.2), { animate: true, duration: 1.0 });
+            }
+        }
+    </script>
+</body>
+</html>

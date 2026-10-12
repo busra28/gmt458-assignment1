@@ -34,6 +34,7 @@
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
             border-top: 4px solid #2563eb;
+            position: relative;
         }
         .map-card h2 {
             margin-top: 0;
@@ -57,6 +58,148 @@
             border-radius: 8px;
             border: 1px solid #e2e8f0;
         }
+        .location-list-box {
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f1f5f9;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+        .location-list-box strong {
+            color: #1e293b;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .location-list-box ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            line-height: 1.4;
+        }
+        .location-list-box li {
+            margin-bottom: 0.3rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .location-list-box li:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        /* Leaflet Popup Fotoğraf Stili */
+        .leaflet-popup-content img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+        /* OpenLayers Popup Stili */
+        .ol-popup {
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            bottom: 20px;
+            left: -50px;
+            min-width: 180px;
+            font-size: 0.85rem;
+            color: #1e293b;
+            z-index: 1000;
+        }
+        .ol-popup-closer {
+            text-decoration: none;
+            position: absolute;
+            top: 4px;
+            right: 8px;
+            color: #94a3b8;
+            font-weight: bold;
+        }
+        .ol-popup-closer:after {
+            content: "✖";
+        }
+
+        /* Plak Koleksiyonu Vitrini */
+        .vinyl-showcase-section {
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #8b5cf6;
+            border: 1px solid #e2e8f0;
+        }
+        .vinyl-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .vinyl-item {
+            background: white;
+            border-radius: 16px;
+            padding: 1.2rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+        .vinyl-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 25px rgba(139, 92, 246, 0.15);
+            border-color: #c4b5fd;
+        }
+        .vinyl-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+        }
+        .vinyl-item h3 {
+            font-size: 1rem;
+            color: #1e293b;
+            margin: 0 0 0.4rem 0;
+            font-weight: 600;
+        }
+        .vinyl-count {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.6rem;
+            box-shadow: 0 3px 10px rgba(139, 92, 246, 0.3);
+            letter-spacing: 0.3px;
+        }
+        .vinyl-item p {
+            font-size: 0.82rem;
+            color: #64748b;
+            margin-bottom: 1.2rem;
+            line-height: 1.4;
+        }
+        .vinyl-map-btn {
+            background: #ede9fe;
+            color: #7c3aed;
+            border: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .vinyl-map-btn:hover {
+            background: #7c3aed;
+            color: white;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -64,32 +207,137 @@
     <!-- Uniform Navigation Menu -->
     <nav>
         <div class="nav-container">
-            <span class="nav-logo">Büşra Başoğlu🌍</span>
+            <span class="nav-logo">Büşra Başoğlu📀🎶</span>
             <div class="nav-links">
                 <a href="index.html">About Me</a>
-                <a href="maps.html" class="active">Maps (Web GIS)</a>
+                <a href="maps.html" class="active">My Vinyl Map</a>
+                <a href="gallery.html">My Concert Map</a>
                 <a href="social.html">Contact</a>
             </div>
         </div>
     </nav>
 
     <main class="container">
-        <h1 class="animate-title">My Geographical Routes & Locations 🌍</h1>
-        <p class="subtitle" style="text-align: center; color: #64748b; margin-top: -1rem; margin-bottom: 2rem;">Macro and micro-scale map application created with Leaflet and OpenLayers libraries.</p>
+        <h1 class="animate-title">My Favourıte and Dream Record Store📀</h1>
+        <p class="subtitle" style="text-align: center; color: #64748b; margin-top: -1rem; margin-bottom: 2rem;">Macro and micro-scale map application created with Leaflet and OpenLayers libraries, blending travel routes with analog vinyl culture.</p>
         
         <div class="map-grid">
             <!-- 1. World Map (Leaflet) -->
             <div class="map-card">
                 <span class="tech-badge">Library: Leaflet.js</span>
-                <h2>🌐 World - Dream Travel Routes</h2>
+                <h2>🌐 World - Vinyl & Travel Routes</h2>
                 <div id="leaflet-map" class="map"></div>
+                
+                <div class="location-list-box">
+                    <strong>🎵 Global Record Store Spots (Click to Zoom):</strong>
+                    <ul>
+                        <li onclick="focusLeaflet(51.5220, -0.0710, 14, 0)"><b>Rough Trade (London):</b> Legendary independent record store</li>
+                        <li onclick="focusLeaflet(48.8715, 2.3316, 14, 1)"><b>FNAC (Paris):</b> Iconic European culture and media hub</li>
+                        <li onclick="focusLeaflet(34.1021, -118.3267, 14, 2)"><b>Amoeba Music (Los Angeles):</b> Massive independent music sanctuary</li>
+                        <li onclick="focusLeaflet(50.0755, 14.4378, 12, 3)"><b>Phono.cz (Prague):</b> Historic city to explore</li>
+                        <li onclick="focusLeaflet(48.2082, 16.3738, 12, 4)"><b>RaveUp Records (Vienna):</b> City of music and art</li>
+                        <li onclick="focusLeaflet(35.6762, 139.6503, 12, 5)"><b>Tower Records (Tokyo):</b> Amazing vinyl culture</li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- 2. Ankara Map (OpenLayers) -->
+            <!-- 2. Ankara & Turkey Map (OpenLayers) -->
             <div class="map-card">
                 <span class="tech-badge" style="background: #fef3c7; color: #b45309;">Library: OpenLayers</span>
-                <h2>📍 Ankara - My Favorite Spots</h2>
+                <h2>📍 Turkey - Record Stores & Favorite Spots</h2>
                 <div id="openlayers-map" class="map"></div>
+                
+                <!-- OpenLayers Tıklama Popup Alanı -->
+                <div id="ol-popup" class="ol-popup">
+                    <a href="#" id="ol-popup-closer" class="ol-popup-closer"></a>
+                    <div id="ol-popup-content"></div>
+                </div>
+
+                <div class="location-list-box">
+                    <strong>🎶 Record Stores & Ankara Spots (Click to Zoom):</strong>
+                    <ul>
+                        <li onclick="focusOpenLayers(32.8615, 39.9135, 15, 'Ankara Tunalı Passages', 'Cozy passages with hidden analog vinyl collections.')"><b>Ankara Tunalı Passages:</b> Hidden analog record shops & vintage crates</li>
+                        <li onclick="focusOpenLayers(28.9784, 41.0369, 14, 'Opus3a (Beyoğlu, İstanbul)', 'Iconic independent record store for rare vinyl collections.')"><b>Opus3a (Beyoğlu):</b> Iconic hub for rare vinyl collections</li>
+                        <li onclick="focusOpenLayers(29.0270, 40.9880, 14, 'Plak İstasyonu (Kadıköy, İstanbul)', 'Independent record store in Kadıköy.')"><b>Plak İstasyonu (Kadıköy):</b> Great spot for independent records</li>
+                        <li onclick="focusOpenLayers(29.0100, 41.0450, 14, 'Moya Plak (Beşiktaş, İstanbul)', 'Warm analog sound destination in Beşiktaş.')"><b>Moya Plak (Beşiktaş):</b> Warm analog sound destination</li>
+                        <li onclick="focusOpenLayers(29.0280, 40.9900, 14, 'Pera Plak (Kadıköy, İstanbul)', 'Classic record destination in Kadıköy.')"><b>Pera Plak (Kadıköy):</b> Classic vinyl and vintage archive</li>
+                        <li onclick="focusOpenLayers(27.1428, 38.4237, 14, 'Ekinoks Plak (İzmir)', 'Wonderful Aegean vinyl culture store.')"><b>Ekinoks Plak (İzmir):</b> Wonderful Aegean vinyl culture</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plak Koleksiyonu Vitrini -->
+        <div class="vinyl-showcase-section">
+            <h2 style="margin-top: 0; font-size: 1.4rem; color: #1e293b; margin-bottom: 0.3rem;">🎵 Vinyl Collection & Record Shop Hauls</h2>
+            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">Exploring record crates across Türkiye & world stores. Click "View on Map" to locate each store instantly.</p>
+            
+            <div class="vinyl-grid">
+                <!-- 1. Ankara Tunalı Pasajları -->
+                <div class="vinyl-item">
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsE3AtqQO8sJXv2E-Gmc6dK3fkGLa56LkgJ2Bcqo1Fo8hpuNVrDGrR3rc&s=10" alt="Ankara Tunalı Passages">
+                        <span class="vinyl-count">📀 4 Records Collected</span>
+                        <h3>Ankara Tunalı Passages</h3>
+                        <p>Nostalgic crate digging in Ankara's cozy passages</p>
+                    </div>
+                    <button class="vinyl-map-btn" onclick="focusOpenLayers(32.8615, 39.9135, 15, 'Ankara Tunalı Passages', 'Cozy passages with hidden analog vinyl collections.')">📍 View on Map</button>
+                </div>
+
+                <!-- 2. Opus3a (Beyoğlu) -->
+                <div class="vinyl-item">
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQpDQeYDiRdR-93Lb0mVKEtmGnAl-yiflWxpC3YYPO1fN4jPeqLzyHVWU&s=10" alt="Opus3a Beyoglu">
+                        <span class="vinyl-count">📀 14 Records Collected</span>
+                        <h3>Opus3a (Beyoğlu)</h3>
+                        <p>Historic Beyoğlu spot for limited-edition color pressings</p>
+                    </div>
+                    <button class="vinyl-map-btn" onclick="focusOpenLayers(28.9784, 41.0369, 14, 'Opus3a (Beyoğlu, İstanbul)', 'Iconic independent record store in Beyoğlu.')">📍 View on Map</button>
+                </div>
+
+                <!-- 3. Plak İstasyonu (Kadıköy) -->
+                <div class="vinyl-item">
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpQ_HpNsn0ABhpw70BQoRmlnjdQvodm8fAq32W7TlUjAuwwhqUR2h_3d4s&s=10" alt="Plak Istasyonu Kadikoy">
+                        <span class="vinyl-count">📀 5 Records Collected</span>
+                        <h3>Plak İstasyonu (Kadıköy)</h3>
+                        <p>Cozy Kadıköy store with rich indie vinyl archives</p>
+                    </div>
+                    <button class="vinyl-map-btn" onclick="focusOpenLayers(29.0270, 40.9880, 14, 'Plak İstasyonu (Kadıköy, İstanbul)', 'Independent record store in Kadıköy.')">📍 View on Map</button>
+                </div>
+
+                <!-- 4. Moya Plak (Beşiktaş) -->
+                <div class="vinyl-item">
+                    <div>
+                        <img src="https://images.vinylworld.org/record-store/s600/1dysXRPyp1fx1uwO5.webp" alt="Moya Plak Besiktas">
+                        <span class="vinyl-count">📀 6 Records Collected</span>
+                        <h3>Moya Plak (Beşiktaş)</h3>
+                        <p>Warm analog sound destination in Beşiktaş</p>
+                    </div>
+                    <button class="vinyl-map-btn" onclick="focusOpenLayers(29.0100, 41.0450, 14, 'Moya Plak (Beşiktaş, İstanbul)', 'Warm analog sound destination in Beşiktaş.')">📍 View on Map</button>
+                </div>
+
+                <!-- 5. Pera Plak (Kadıköy) -->
+                <div class="vinyl-item">
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcMhzUhjbfT82MTPZQTAKOaVPnHcvv9-yUh7QxIvj0LIeHfY2tQzOSVOY&s=10" alt="Pera Plak Kadikoy">
+                        <span class="vinyl-count">📀 3 Records Collected</span>
+                        <h3>Pera Plak (Kadıköy)</h3>
+                        <p>Classic vinyl archive and retro pressings</p>
+                    </div>
+                    <button class="vinyl-map-btn" onclick="focusOpenLayers(29.0280, 40.9900, 14, 'Pera Plak (Kadıköy, İstanbul)', 'Classic vinyl store in Kadıköy.')">📍 View on Map</button>
+                </div>
+
+                <!-- 6. Ekinoks Plak (İzmir) -->
+                <div class="vinyl-item">
+                    <div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuI6MJj8QO_3nAbb4kt2mgKK1-OtfGlh2DTzj25TFePw&s" alt="Ekinoks Plak Izmir">
+                        <span class="vinyl-count">📀 4 Records Collected</span>
+                        <h3>Ekinoks Plak (İzmir)</h3>
+                        <p>Warm Aegean vinyl culture stop</p>
+                    </div>
+                    <button class="vinyl-map-btn" onclick="focusOpenLayers(27.1428, 38.4237, 14, 'Ekinoks Plak (İzmir)', 'Wonderful Aegean vinyl culture store.')">📍 View on Map</button>
+                </div>
             </div>
         </div>
     </main>
@@ -107,50 +355,81 @@
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.js"></script>
 
     <script>
-        // 1. LEAFLET: World Map
+        // 1. LEAFLET: World Map (Sonsuz tekrarı önlemek için noWrap: true ve maxBounds eklendi)
+        const southWest = L.latLng(-85, -180);
+        const northEast = L.latLng(85, 180);
+        const worldBounds = L.latLngBounds(southWest, northEast);
+
         const leafletMap = L.map('leaflet-map', {
-            zoomSnap: 0.5,
+            zoomSnap: 0.25,
             zoomDelta: 0.5,
-            wheelPxPerZoomLevel: 120
-        }).setView([48.0, 10.0], 3);
+            wheelPxPerZoomLevel: 120,
+            minZoom: 1,
+            maxBounds: worldBounds,
+            maxBoundsViscosity: 1.0
+        });
 
         L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
             maxZoom: 19,
+            noWrap: true,
+            bounds: worldBounds,
             attribution: 'Tiles &copy; Esri'
         }).addTo(leafletMap);
 
         const markers = L.markerClusterGroup();
         const worldLocations = [
-            { name: "Prague, Czech Republic", coords: [50.0755, 14.4378], desc: "Historic city to visit and explore." },
-            { name: "Vienna, Austria", coords: [48.2082, 16.3738], desc: "City of music and art." },
-            { name: "Dublin, Ireland", coords: [53.3498, -6.2603], desc: "Fascinating nature and culture." },
-            { name: "Barcelona, Spain", coords: [41.3851, 2.1734], desc: "Architecture and Mediterranean vibe." },
-            { name: "Oslo, Norway", coords: [59.9139, 10.7522], desc: "Scandic breathtaking nature." },
-            { name: "Helsinki, Finland", coords: [60.1699, 24.9384], desc: "Peaceful capital of the north." },
-            { name: "London, UK", coords: [51.5074, -0.1278], desc: "Culture and travel hub." },
-            { name: "Rome, Italy", coords: [41.9028, 12.4964], desc: "Ancient history and delicious cuisine." },
-            { name: "Tokyo, Japan", coords: [35.6762, 139.6503], desc: "Amazing far-east experience." }
+            { name: "Rough Trade (London)", coords: [51.5220, -0.0710], desc: "Legendary independent record store.", img: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Rough_Trade_Records%2C_Talbot_Road_-_geograph.org.uk_-_1279495.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original" },
+            { name: "FNAC (Paris)", coords: [48.8715, 2.3316], desc: "Iconic 4-letter cultural landmark.", img: "https://www.hotels-paris-champs-elysees.com/images/pages/fnac-jasonw.jpg" },
+            { name: "Amoeba Music (Los Angeles)", coords: [34.1021, -118.3267], desc: "Massive independent music sanctuary.", img: "https://s3-media0.fl.yelpcdn.com/bphoto/upz2iKEeXH9jRLnDlIBEkQ/348s.jpg" },
+            { name: "Phono.cz, Czech Republic", coords: [50.0755, 14.4378], desc: "Historic city to explore.", img: "https://recordstores.love/images/mthumb.php?w=1200&rot=0&src=s690_50205.jpg" },
+            { name: "Vienna, Austria", coords: [48.2082, 16.3738], desc: "City of music and art.", img: "https://lifeinthevinyllane.com/wp-content/uploads/2025/03/ViennaRaveUp.jpg" },
+            { name: "Tower Records Tokyo, Japan", coords: [35.6762, 139.6503], desc: "Amazing vinyl culture.", img: "https://img.apmcdn.org/3dc51da38b3dcdd8ab12feb9dc69ad94ac66f653/square/1f441b-2022-10-e6-b8-8b-e8-b0-b7-e5-ba-97-e5-a4-96-e8-a6-b3-ef-bc-88-e3-83-a1-e3-82-a4-e3-83-b3-ef-bc-89-667.jpg" }
         ];
 
-        worldLocations.forEach(loc => {
+        const leafletMarkersList = [];
+
+        worldLocations.forEach((loc, index) => {
             const marker = L.marker(loc.coords);
-            marker.bindPopup(`<b>${loc.name}</b><br>${loc.desc}`);
+            const popupHtml = `
+                <div style="text-align: center; max-width: 140px;">
+                    <b style="font-size: 0.85rem; color: #1e293b;">${loc.name}</b>
+                    <p style="font-size: 0.75rem; color: #64748b; margin: 3px 0;">${loc.desc}</p>
+                    <img src="${loc.img}" alt="${loc.name}">
+                </div>
+            `;
+            marker.bindPopup(popupHtml);
             markers.addLayer(marker);
+            leafletMarkersList.push(marker);
         });
         leafletMap.addLayer(markers);
 
-        // 2. OPENLAYERS: Ankara Map
+        // Tüm noktaları tek ekrana sığdırma
+        leafletMap.fitBounds(markers.getBounds().pad(0.1));
+
+        function focusLeaflet(lat, lon, zoom, markerIndex) {
+            leafletMap.setView([lat, lon], zoom, { animate: true });
+            const targetMarker = leafletMarkersList[markerIndex];
+            if (targetMarker) {
+                markers.zoomToShowLayer(targetMarker, () => {
+                    targetMarker.openPopup();
+                });
+            }
+        }
+
+
+        // 2. OPENLAYERS: Turkey Map
         const ankaraLocations = [
-            { name: "Botanic Park", coords: [32.8597, 39.8901], desc: "Green oasis in the heart of the city." },
-            { name: "Bahçelievler 7th Street", coords: [32.8250, 39.9130], desc: "Enjoyable walks and meeting spot." },
-            { name: "Tunalı Hilmi Avenue", coords: [32.8611, 39.9125], desc: "Vibrant and nostalgic street of Ankara." },
-            { name: "Dikmen Valley", coords: [32.8500, 39.8833], desc: "Favorite nature and walking tracks." },
-            { name: "Armada Hayat Street", coords: [32.8083, 39.9167], desc: "Social hub and vibrant venues." },
-            { name: "Eymir Lake", coords: [32.8430, 39.8350], desc: "Peaceful escape into nature." },
-            { name: "Kızılay Square", coords: [32.8541, 39.9208], desc: "The bustling center of the city." }
+            { name: "Ankara Tunalı Passages", coords: [32.8615, 39.9135], desc: "Cozy passages with hidden analog vinyl collections." },
+            { name: "Opus3a (Beyoğlu, İstanbul)", coords: [28.9784, 41.0369], desc: "Iconic independent record store in Beyoğlu." },
+            { name: "Plak İstasyonu (Kadıköy, İstanbul)", coords: [29.0270, 40.9880], desc: "Independent record store in Kadıköy." },
+            { name: "Moya Plak (Beşiktaş, İstanbul)", coords: [29.0100, 41.0450], desc: "Warm analog sound destination in Beşiktaş." },
+            { name: "Pera Plak (Kadıköy, İstanbul)", coords: [29.0280, 40.9900], desc: "Classic vinyl store in Kadıköy." },
+            { name: "Ekinoks Plak (İzmir)", coords: [27.1428, 38.4237], desc: "Wonderful Aegean vinyl culture store." },
+            { name: "Tunalı Hilmi Avenue", coords: [32.8611, 39.9125], desc: "Vibrant and nostalgic street of Ankara." }
         ];
 
-        const vectorSource = new ol.source.Vector();
+        const vectorSource = new ol.source.Vector({ wrapX: false });
+        
         ankaraLocations.forEach(loc => {
             const iconFeature = new ol.Feature({
                 geometry: new ol.geom.Point(ol.proj.fromLonLat(loc.coords)),
@@ -162,11 +441,12 @@
 
         const vectorLayer = new ol.layer.Vector({
             source: vectorSource,
+            wrapX: false,
             style: new ol.style.Style({
                 image: new ol.style.Circle({
-                    radius: 8,
-                    fill: new ol.style.Fill({ color: '#e74c3c' }),
-                    stroke: new ol.style.Stroke({ color: '#ffffff', width: 2 })
+                    radius: 9,
+                    fill: new ol.style.Fill({ color: '#8b5cf6' }),
+                    stroke: new ol.style.Stroke({ color: '#ffffff', width: 2.5 })
                 })
             })
         });
@@ -177,18 +457,63 @@
                 new ol.layer.Tile({
                     source: new ol.source.XYZ({
                         url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-                        attributions: 'Tiles &copy; Esri'
+                        attributions: 'Tiles &copy; Esri',
+                        wrapX: false
                     })
                 }),
                 vectorLayer
             ],
             view: new ol.View({
                 center: ol.proj.fromLonLat([32.8541, 39.9208]),
-                zoom: 12,
+                zoom: 11,
+                extent: ol.proj.transformExtent([-180, -90, 180, 90], 'EPSG:4326', 'EPSG:3857'),
                 smoothResolutionConstraint: true,
                 constrainResolution: false
             })
         });
+
+        const container = document.getElementById('ol-popup');
+        const content = document.getElementById('ol-popup-content');
+        const closer = document.getElementById('ol-popup-closer');
+
+        const overlay = new ol.Overlay({
+            element: container,
+            autoPan: { animation: { duration: 250 } }
+        });
+        openlayersMap.addOverlay(overlay);
+
+        closer.onclick = function() {
+            overlay.setPosition(undefined);
+            closer.blur();
+            return false;
+        };
+
+        openlayersMap.on('click', function(evt) {
+            const feature = openlayersMap.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                return feature;
+            });
+            if (feature) {
+                const coordinates = feature.getGeometry().getCoordinates();
+                const name = feature.get('name');
+                const desc = feature.get('description');
+                content.innerHTML = `<b>${name}</b><br><span style="color: #64748b;">${desc}</span>`;
+                overlay.setPosition(coordinates);
+            } else {
+                overlay.setPosition(undefined);
+            }
+        });
+
+        function focusOpenLayers(lon, lat, zoom, name, desc) {
+            const coord = ol.proj.fromLonLat([lon, lat]);
+            openlayersMap.getView().animate({
+                center: coord,
+                zoom: zoom,
+                duration: 1000
+            });
+            content.innerHTML = `<b>${name}</b><br><span style="color: #64748b;">${desc}</span>`;
+            overlay.setPosition(coord);
+            document.getElementById('openlayers-map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     </script>
 </body>
 </html>

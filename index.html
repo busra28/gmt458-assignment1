@@ -3,21 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Büşra Başoğlu - GMT 458 Portfolio</title>
+    <title>Büşra Başoğlu - Geomatics Engineering Portfolio</title>
     <!-- Linking our CSS style sheet -->
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts for modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Genel Animasyon Efektleri */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .profile-section, .content-section {
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        /* Tablo satırlarına modern hover animasyonu */
+        tbody tr {
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        tbody tr:hover {
+            transform: scale(1.01);
+            background-color: #f8fafc;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.08);
+        }
+
+        /* Hızlı Geçiş Kartları Tasarımı */
+        .quick-nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .quick-nav-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .quick-card {
+            background: white;
+            padding: 1.8rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: block;
+        }
+        .quick-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 35px rgba(139, 92, 246, 0.15);
+            border-color: #c4b5fd;
+        }
+        .quick-card h3 {
+            margin: 0.5rem 0 0.5rem 0;
+            color: #1e293b;
+            font-size: 1.2rem;
+        }
+        .quick-card p {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.4;
+        }
+        .quick-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Geliştirilmiş ve Estetik Profil Kartı Yerleşimi */
+        .profile-card-improved {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-card-improved::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #ec4899);
+        }
+        .profile-img-container {
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .profile-img-improved {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #f1f5f9;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        .profile-text-content {
+            flex-grow: 1;
+        }
+        @media (max-width: 850px) {
+            .profile-card-improved {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.8rem;
+            }
+        }
+
+        /* Profesyonel Deneyim Vurgu Kutusu */
+        .highlight-box {
+            background: linear-gradient(135deg, #fdf2f8 0%, #f0fdf4 100%);
+            border-left: 4px solid #ec4899;
+            padding: 1rem 1.2rem;
+            border-radius: 0 12px 12px 0;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .highlight-box b {
+            color: #db2777;
+        }
+
+        /* Kişisel Uzmanlık Kartları Animasyonlu */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+        .expertise-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border-top: 4px solid #3b82f6;
+            transition: all 0.3s ease;
+        }
+        .expertise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(59, 130, 246, 0.12);
+            border-color: #93c5fd;
+        }
+        .expertise-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e293b;
+            font-size: 1rem;
+        }
+        .expertise-card p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
 
     <!-- Navigation Menu -->
     <nav>
         <div class="nav-container">
-            <span class="nav-logo">Büşra Başoğlu<3</span>
+            <span class="nav-logo">Büşra Başoğlu 💙</span>
             <div class="nav-links">
                 <a href="index.html" class="active">About Me</a>
-                <a href="maps.html">Maps (Web GIS)</a>
+                <a href="maps.html">My Vinyl Map</a>
+                <a href="gallery.html">My Concert Map</a>
                 <a href="social.html">Contact</a>
             </div>
         </div>
@@ -25,68 +191,119 @@
 
     <main class="container">
         <!-- Hero Section with Animated Title -->
-        <h1 class="animate-title">Welcome to My Personal Web Page! </h1>
+        <h1 class="animate-title">Welcome to My Personal Web Page! 💙</h1>
         
-        <!-- Profile Section with Photo -->
+        <!-- Profile Section with Improved Aesthetic Layout -->
         <section class="profile-section">
-            <div class="profile-card">
-                <img src="profil.jpg" alt="Büşra Başoğlu" class="profile-img">
-                <div class="profile-info">
-                    <h2>Hello, I'm Büşra! 👋</h2>
-                    <p class="subtitle">Senior Geomatics/Map Engineering Student @ Hacettepe University</p>
-                    <p>I have a deep passion for transforming complex spatial data into meaningful, accessible, and interactive digital web experiences. Bridging the gap between traditional cartography and modern web technologies drives my enthusiasm for Web GIS.</p>
+            <div class="profile-card-improved">
+                <div class="profile-img-container">
+                    <img src="profil.jpg" alt="Büşra Başoğlu" class="profile-img-improved">
+                    <div style="margin-top: 0.6rem; font-size: 0.8rem; color: #64748b; font-weight: 500;">Büşra Başoğlu 👩‍💻</div>
+                </div>
+                <div class="profile-text-content">
+                    <h2 style="margin-top: 0; color: #1e293b;">Hello, I'm Büşra! 👋</h2>
+                    <p class="subtitle" style="color: #2563eb; font-weight: 600; margin-bottom: 0.8rem;">Senior Geomatics / Map Engineering Student @ Hacettepe University</p>
+                    
+                    <p style="color: #475569; line-height: 1.6; margin-bottom: 0.8rem;">I was born in Ankara on 16th August 2002, and I am currently in my senior year studying Geomatics/Map Engineering at Hacettepe University. My academic journey is driven by a strong fascination with spatial data modeling, cartography, and modern web mapping technologies.</p>
+                    
+                    <div class="highlight-box">
+                        💼 <b>Professional Experience:</b> Alongside my senior studies, I work part-time at the Ankara branch of <b>AS VİSA Solutions</b>—the official intermediate agency handling visa procedures for the Hungarian Consulate. Balancing professional responsibilities with demanding engineering projects has greatly sharpened my time management and communication skills!
+                    </div>
+
+                    <p style="margin-top: 1rem; color: #475569; line-height: 1.6;">I enjoy transforming complex geographic datasets and satellite analyses into intuitive, interactive web applications. Bridging traditional geodetic principles with modern front-end tools is both my primary focus and my biggest passion.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Academic & Technical Focus -->
+        <!-- Plak & Konser Sayfalarına Hızlı Geçiş Alanı -->
         <section class="content-section">
-            <h2>💻 Technical Skills & Engineering Focus</h2>
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <strong>Web Mapping & GIS:</strong> Building interactive vector layers, marker clustering, and custom spatial apps using Leaflet & OpenLayers.
+            <h2>🚀 Explore My World & Interactive Journeys</h2>
+            <p>Dive straight into my curated record shop discoveries, spatial web maps, and live concert memories:</p>
+            
+            <div class="quick-nav-grid">
+                <a href="maps.html" class="quick-card" style="border-top: 4px solid #8b5cf6;">
+                    <div class="quick-icon">📀</div>
+                    <h3>Maps & Vinyl Hauls</h3>
+                    <p>Explore dual-engine Web GIS maps (Leaflet & OpenLayers), global travel routes, and my analog vinyl collection spots.</p>
+                </a>
+                
+                <a href="gallery.html" class="quick-card" style="border-top: 4px solid #ec4899;">
+                    <div class="quick-icon">🎶</div>
+                    <h3>Concert Memories Gallery</h3>
+                    <p>Discover an interactive map journal of all my live concert experiences, festival memories, setlists, and yearly filters.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Geomatics & Spatial Expertise (Kişisel Haritacılık / Mühendislik Alanları) -->
+        <section class="content-section">
+            <h2>🛰️ Geomatics & Spatial Expertise</h2>
+            <p>Core engineering disciplines and spatial domains I focus on throughout my academic career:</p>
+            
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h4>🗺️ Cartography & Map Design</h4>
+                    <p>Designing accurate thematic maps, handling coordinate reference systems, and applying map projections with proper cartographic rules.</p>
                 </div>
-                <div class="skill-item">
-                    <strong>Spatial Analysis:</strong> Active utilization of QGIS, Netcad, and Google Earth Engine for environmental and regional mapping.
+                <div class="expertise-card">
+                    <h4>📡 Remote Sensing & Earth Observation</h4>
+                    <p>Processing satellite imagery (Sentinel, Landsat), calculating vegetation indices (like dNBR for wildfire burn severity), and environmental monitoring.</p>
                 </div>
-                <div class="skill-item">
-                    <strong>Remote Sensing:</strong> Processing satellite imagery and assessing environmental changes (such as wildfire severity indices).
+                <div class="expertise-card">
+                    <h4>🌐 Web GIS & Spatial Databases</h4>
+                    <p>Building interactive client-side web mapping applications, managing spatial queries, and utilizing modern mapping libraries.</p>
                 </div>
-                <div class="skill-item">
-                    <strong>Version Control:</strong> Managing collaborative engineering projects via Git and GitHub workflows.
+                <div class="expertise-card">
+                    <h4>📐 Geodesy & Spatial Analysis</h4>
+                    <p>Performing geodetic computations, spatial joins, regional statistical analysis, and surface modeling for engineering projects.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Technologies Table with Visual Logos -->
+        <!-- Professional Toolkit & GIS Software (Haritacının Günlük Araçları) -->
         <section class="content-section">
-            <h2>🛠️ Technologies I Use</h2>
-            <p>Below are the fundamental web technologies and tools utilized throughout building this web site and the course:</p>
+            <h2>⚙️ Professional Toolkit & GIS Software</h2>
+            <p>The core software, programming languages, and spatial tools I actively utilize for engineering solutions:</p>
             
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Logo</th>
-                            <th>Technology</th>
-                            <th>Purpose of Use</th>
+                            <th>Tool / Icon</th>
+                            <th>Software / Technology</th>
+                            <th>Engineering Application & Proficiency</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" alt="HTML5 Logo" width="35"></td>
-                            <td><strong>HTML5</strong></td>
-                            <td>Structuring the layout and core semantic content of the web page.</td>
+                            <td>🟢</td>
+                            <td><strong>QGIS</strong></td>
+                            <td>Comprehensive open-source GIS software used for vector/raster analysis, spatial joins, and thematic map production.</td>
                         </tr>
                         <tr>
-                            <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" alt="CSS3 Logo" width="35"></td>
-                            <td><strong>CSS3</strong></td>
-                            <td>Styling layouts, managing modern color palettes, and smooth animations.</td>
+                            <td>📐</td>
+                            <td><strong>Netcad</strong></td>
+                            <td>Professional CAD and GIS software widely used in Turkey for surveying, zoning plans, and engineering design.</td>
                         </tr>
                         <tr>
-                            <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png" alt="Git Logo" width="35"></td>
+                            <td>🌍</td>
+                            <td><strong>Google Earth Engine</strong></td>
+                            <td>Cloud-based platform for planetary-scale geospatial analysis and multi-spectral satellite imagery processing.</td>
+                        </tr>
+                        <tr>
+                            <td>🌐</td>
+                            <td><strong>Leaflet.js & OpenLayers</strong></td>
+                            <td>JavaScript mapping libraries utilized for developing custom interactive web GIS applications and marker clustering.</td>
+                        </tr>
+                        <tr>
+                            <td>🐍</td>
+                            <td><strong>Python & Scripting</strong></td>
+                            <td>Automating spatial data workflows, processing geographic files, and building data visualization scripts.</td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png" alt="Git Logo" width="24"></td>
                             <td><strong>Git / GitHub</strong></td>
-                            <td>Managing version control, tracking commits, and deploying live pages.</td>
+                            <td>Managing version control for engineering codes, collaborative development, and web hosting.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -125,7 +342,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 GMT 458 Web GIS Assignment | Designed by Büşra Başoğlu 🌍</p>
+        <p>© 2026 GMT 458 Portfolio | Designed by Büşra Başoğlu 💙</p>
     </footer>
 
 </body>
