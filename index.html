@@ -25,6 +25,11 @@
             animation: fadeInUp 0.8s ease backwards;
         }
 
+        /* Kartlar arası çakışmayı önleyen güvenli alt boşluk */
+        .profile-section {
+            margin-bottom: 2.5rem;
+        }
+
         /* Tablo satırlarına modern hover animasyonu */
         tbody tr {
             transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -225,12 +230,18 @@
                     <div class="quick-icon">📀</div>
                     <h3>Maps & Vinyl Hauls</h3>
                     <p>Explore dual-engine Web GIS maps (Leaflet & OpenLayers), global travel routes, and my analog vinyl collection spots.</p>
+                    <div style="margin-top: 1.2rem; font-size: 0.85rem; font-weight: 600; color: #8b5cf6; display: inline-flex; align-items: center; gap: 0.3rem;">
+                        Explore Interactive Maps ➔
+                    </div>
                 </a>
                 
                 <a href="gallery.html" class="quick-card" style="border-top: 4px solid #ec4899;">
                     <div class="quick-icon">🎶</div>
                     <h3>Concert Memories Gallery</h3>
                     <p>Discover an interactive map journal of all my live concert experiences, festival memories, setlists, and yearly filters.</p>
+                    <div style="margin-top: 1.2rem; font-size: 0.85rem; font-weight: 600; color: #ec4899; display: inline-flex; align-items: center; gap: 0.3rem;">
+                        View Concert Journal ➔
+                    </div>
                 </a>
             </div>
         </section>
