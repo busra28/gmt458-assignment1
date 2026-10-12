@@ -17,6 +17,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.3.0/dist/ol.css">
 
     <style>
+        /* Sayfa genişliğini enine biraz daha ferahlatıp haritalara daha çok alan açtık */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
         .map-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -132,9 +139,21 @@
         }
         .vinyl-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin-top: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .vinyl-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .vinyl-grid {
+                grid-template-columns: 1fr;
+            }
         }
         .vinyl-item {
             background: white;

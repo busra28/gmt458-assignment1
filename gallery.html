@@ -142,7 +142,7 @@
 
         .gallery-layout {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1.4fr 1fr;
             gap: 2rem;
             margin-top: 1.5rem;
             margin-bottom: 3rem;
@@ -150,6 +150,12 @@
         @media (max-width: 950px) {
             .gallery-layout {
                 grid-template-columns: 1fr;
+            }
+            /* Mobilde haritanın üst üste binmesini önleyen düzeltme */
+            .map-section {
+                position: relative !important;
+                top: 0 !important;
+                margin-bottom: 2rem;
             }
         }
         .map-section {
